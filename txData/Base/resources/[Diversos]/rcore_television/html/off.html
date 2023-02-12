@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<title>Welcome traveler, hope you like this useless file. :) Here, have a cookie to your journey!</title>
+		<style>
+		.dot{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 0.25vw;
+			height: 0.25vw;
+			background: white;
+			border-radius: 100%;
+			border-color: black;
+			border-style: solid;
+		}
+		</style>
+	</head>
+	<body>
+		<div class = "dot" style = "display:none;"></div>
+	</body>
+	<script>
+		$(function(){
+			window.addEventListener('message', function(event) {
+				var item = event.data;
+				if(item.type === "showdot"){
+					$(".dot").show("slow");
+				}
+				if(item.type === "hidedot"){
+					$(".dot").hide("slow");
+				}
+			})
+		});
+	</script>
+</html>

@@ -1,0 +1,35 @@
+body {
+ overflow: hidden;
+ display: none;
+}
+
+#ui {
+ position: absolute;
+ background-color: rgba(40, 40, 40, 0.6);
+ width: 20%;
+ height: 7%;
+ right: 1%;
+ top: 2%;
+}
+
+#text {
+ font-family: motor, monospace;
+ width: 15vw;
+ margin-top: 3%;
+ margin-left: 2.5%;
+ color: rgba(255,255,255, 0.9);
+ font-size: 1.2vw;
+ text-shadow: 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black;
+ font-weight: 600;
+ font-style: normal;
+ text-transform: uppercase;
+}
+
+#logo {
+ position: absolute;
+ width: 3.5vw;
+ height: 3.5vw;
+ top: 5%;
+ right: 2.5%;
+ opacity: 0.8;
+}

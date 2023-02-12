@@ -1,0 +1,58 @@
+body {
+    background: none;
+}
+#svg circle {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.05s linear;
+    stroke: #1f3436;
+    stroke-width: 1em;
+}
+#svg #bar {
+    stroke: white;
+}
+#svg #interact_bar {
+    stroke: #008785;
+}
+#cont {
+    display: block;
+    height: 200px;
+    width: 200px;
+    margin: 2em auto;
+    border-radius: 100%;
+    position: relative;
+    color: transparent;
+}
+#cont:after {
+    position: absolute;
+    display: block;
+    height: 160px;
+    width: 160px;
+    left: 50%;
+    top: 50%;
+    content: attr(data-pct)"%";
+    margin-top: -80px;
+    margin-left: -80px;
+    border-radius: 100%;
+    line-height: 160px;
+    font-size: 2em;
+}
+#text {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+
+    font-family: iphone;
+    font-size: 4vw;
+    font-weight: 1000;
+    text-align: center;
+    color: white;
+}
+
+@font-face {
+	font-family: iphone;
+	src: url(../fonts/SF-Pro-Text-Light.ttf);
+}
+@font-face {
+	font-family: iphone-bold;
+	src: url(../fonts/SF-Pro-Display-Bold.otf);
+}

@@ -1,0 +1,87 @@
+body {
+ overflow: hidden;
+ display: none;
+ font-family: motor, monospace;
+}
+
+#ui {
+ position: absolute;
+ background-color: rgba(40, 40, 40, 0.6);
+ width: 20%;
+ height: 7%;
+ right: 1%;
+ top: 2%;
+}
+
+#text {
+ font-family: motor, monospace;
+ width: 15vw;
+ margin-top: 3%;
+ margin-left: 2.5%;
+ color: rgba(255,255,255, 0.9);
+ font-size: 1.2vw;
+ text-shadow: 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black;
+ font-weight: 600;
+ font-style: normal;
+ text-transform: uppercase;
+}
+
+#logo {
+ position: absolute;
+ width: 3.5vw;
+ height: 3.5vw;
+ top: 5%;
+ right: 2.5%;
+ opacity: 0.8;
+}
+
+.text {
+ color: rgba(255,255,255, 0.9);
+
+ text-transform: uppercase;
+ text-shadow: 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black;
+
+ font-size: 1.4vw;
+ font-weight: 600;
+ font-style: normal;
+
+ margin: 0%;
+}
+
+.right {
+ text-align: right;
+}
+
+.active {
+ color: rgba(60, 170, 27, 0.9);
+}
+
+#gps { 
+ position: absolute;
+
+ left: 1vw;
+ bottom: 1vw;
+}
+
+#info { 
+ position: absolute;
+
+ right: 1vw;
+ bottom: 3vw;
+}
+
+#dash { 
+ position: fixed;
+ left: 50%;
+ bottom: 0vw;
+ transform: translate(-50%, -50%);
+ margin: 0 auto;
+}
+
+#topdash { 
+ position: fixed;
+ left: 50%;
+ top: 2vw;
+ transform: translate(-50%, -50%);
+ margin: 0 auto;
+}

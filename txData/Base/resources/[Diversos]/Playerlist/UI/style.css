@@ -1,0 +1,27 @@
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+}
+
+.main {
+    position: absolute;
+    right: 2%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+}
+
+.container {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.70);
+    color: white;
+    border-radius: 10px;
+}
+
+.container > div {
+    margin-bottom: 10px;
+}
+
+.container > div:last-child {
+    margin-bottom: 0;
+}

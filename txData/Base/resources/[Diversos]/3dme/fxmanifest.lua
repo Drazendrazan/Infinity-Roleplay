@@ -1,0 +1,13 @@
+fx_version 'adamant'
+game 'gta5'
+
+lua54 'yes'
+
+author 'Avarian Knight'
+description '/me with word filtering & OneSync Infinity support'
+version '1.0'
+
+client_script 'client/client.lua'
+server_script 'server/server.js'
+
+client_script "@InfinityAC/src/client/src_c_03.lua"

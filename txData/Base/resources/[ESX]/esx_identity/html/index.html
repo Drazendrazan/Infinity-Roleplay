@@ -1,0 +1,91 @@
+<html>
+
+<head>
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script src="https://kit.fontawesome.com/1ac1f0f175.js" crossorigin="anonymous"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+        <form id="register">
+            <div class="wrapper wrapper--w790">
+                <div class="card card-5">
+                    <div class="card-heading">
+                        <h2 class="title">Registo</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="form-row m-b-55">
+                                <div class="name">Nome</div>
+                                <div class="value">
+                                    <div class="row row-space">
+                                        <div class="col-2">
+                                            <div class="input-group-desc">
+                                                <input class="input--style-5" placeholder="Primeiro Nome" id="firstname" type="text" name="first_name" oninvalid="this.setCustomValidity('Insira o seu primeiro nome')" oninput="this.setCustomValidity('')" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="input-group-desc">
+                                                <input class="input--style-5" placeholder="Último Nome" id="lastname" type="text" name="last_name" oninvalid="this.setCustomValidity('Insira o seu último nome')" oninput="this.setCustomValidity('')" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="name">Data de Nascimento</div>
+                                <div class="value">
+                                    <div class="input-group">
+                                        <input class="input--style-5" placeholder="Exemplo: 01/01/2000" id="dateofbirth" type="date" name="company" oninvalid="this.setCustomValidity('Insira a sua data de nascimento')" oninput="this.setCustomValidity('')" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row m-b-55">
+                                <div class="name">Altura</div>
+                                <div class="value">
+                                    <div class="row row-refine">
+                                        <div class="col-9">
+                                            <div class="input-group-desc">
+                                                <input class="input--style-5" placeholder="Exemplo: 140-200" id="height" type="text" name="height" oninvalid="this.setCustomValidity('Insira a sua altura')" oninput="this.setCustomValidity('')" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row p-t-20">
+                                <label class="label label--block">Género</label>
+                                <div class="p-t-15">
+                                    <label class="radio-container m-r-55">Homem <i class="fas fa-male"></i>
+                                    <input type="checkbox" class="sex" value="m" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                                    <label class="radio-container">Mulher <i class="fas fa-female"></i>
+                                    <input type="checkbox" class="sex" value="f">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </div>
+                            </div>
+                            <div>
+                                <style>
+                                    .fa-user {
+                                        margin-left: 10px;
+                                    }
+                                </style>
+                                <button class="btn btn--radius-2 btn--red" type="submit">Criar personagem <i class="fas fa-user"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="script.js" type="text/javascript"></script>
+    <script>
+        $('input[type="checkbox"]').on('change', function() {
+            $('input[type="checkbox"]').not(this).prop('checked', false);
+        });
+    </script>
+</body>
+
+</html>

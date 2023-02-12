@@ -1,0 +1,13 @@
+RegisterNetEvent("consumables:client:UseClawToy")
+AddEventHandler("consumables:client:UseClawToy", function(itemName)
+    if itemName == "claw2" then exports['r_animations']:StartAnimationPlay("claw2a")
+    elseif itemName == "claw3" then exports['r_animations']:StartAnimationPlay("claw3a")
+    elseif itemName == "claw4" then exports['r_animations']:StartAnimationPlay("claw4a")
+    elseif itemName == "claw5" then exports['r_animations']:StartAnimationPlay("claw5a")
+    elseif itemName == "claw6" then exports['r_animations']:StartAnimationPlay("claw6a")
+    elseif itemName == "claw7" then exports['r_animations']:StartAnimationPlay("claw7a")
+    elseif itemName == "claw8" then exports['r_animations']:StartAnimationPlay("claw8a")
+    elseif itemName == "claw9" then exports['r_animations']:StartAnimationPlay("claw9a") end
+    Citizen.Wait(10000)
+    TriggerEvent('animations:client:EmoteCommandStart', { "c" })
+end)

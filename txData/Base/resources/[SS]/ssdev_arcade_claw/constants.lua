@@ -1,0 +1,13 @@
+leftWallDistance = -0.3
+backWallDistance = 0.5
+inLineWithClawDistance = leftWallDistance + 0.05
+distanceBetweenPrizesY = 0.25
+distanceBetweenPrizesX = 0.25
+defaultClawPositionOffset = vector3(inLineWithClawDistance, -0.1, 1.0)
+defaultZOffsetFloor = 0.85
+leftSidePrizeX = inLineWithClawDistance
+centerSidePrizeX = inLineWithClawDistance + distanceBetweenPrizesX
+rightSidePrizeX = inLineWithClawDistance + (distanceBetweenPrizesX * 2)
+backPrizeY = backWallDistance
+centerPrizeY = backWallDistance - distanceBetweenPrizesY
+frontPrizeY = (backWallDistance - (distanceBetweenPrizesY * 2))

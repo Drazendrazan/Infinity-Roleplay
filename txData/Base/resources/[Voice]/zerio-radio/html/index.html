@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+
+    <script src="./libs/sweetalert2/script.js"></script>
+    <link rel="stylesheet" href="./libs/sweetalert2/style.css" />
+
+    <script src="./libs/axios/script.js"></script>
+
+    <script type="text/javascript" src="./libs/vue/script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="//daybrush.com/moveable/release/latest/dist/moveable.min.js"></script>
+  </head>
+  <body>
+    <div
+      id="app"
+      :class="settings.darkTheme == false ? 'lightmode' : 'darkmode'"
+    >
+      <v-app data-app>
+        <div
+          class="main-container"
+          :style="{
+                    'transform': show ? 'scale(' + Number(settings.scale) + ')' : ' translateY(calc(100% + ' + settings.position.top + 'px)) scale(' + Number(settings.scale) + ')',
+                    'opacity': show ? '1' : '0', 
+                    'cursor': settings.allowDrag ? 'move' : 'default',
+                    'background': poweredOn ? 'var(--background)' : '#101121'
+                }"
+        >
+          <div class="top-container" v-if="poweredOn">
+            <div>
+              <h1 class="top-time unselectable">12:00</h1>
+              <i class="material-icons unselectable top-battery"
+                >battery_full</i
+              >
+            </div>
+            <div>
+              <h1 class="top-volume unselectable">{{settings.volume}}%</h1>
+              <i class="material-icons unselectable top-volume-icon"
+                >volume_up</i
+              >
+            </div>
+          </div>
+
+          <div class="items-container" v-if="poweredOn">
+            <div
+              class="item-container"
+              :style="{'opacity': tab == 'main' ? '1' : '0', 'z-index': tab == 'main' ? '2' : '1'}"
+            >
+              <div class="info-div status">
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div class="text" v-bind="attrs" v-on="on">
+                      <h1 class="status-label">Estado</h1>
+                      <h2 class="status-description street-label">
+                        Algonquin Boulevard
+                      </h2>
+                    </div>
+                  </template>
+                  <span>Estado</span>
+                </v-tooltip>
+                <div class="icons">
+                  <i class="material-icons unselectable status-icon"
+                    >event_note</i
+                  >
+                </div>
+              </div>
+
+              <div class="info-div radio">
+                <div class="top">
+                  <div class="top-icons unselectable">
+                    <i class="material-icons top-status-icon unselectable"
+                      >network_cell</i
+                    >
+                    <i class="material-icons top-status-icon unselectable"
+                      >settings_bluetooth</i
+                    >
+                    <i class="material-icons top-status-icon unselectable"
+                      >settings_remote</i
+                    >
+                    <i class="material-icons top-status-icon unselectable"
+                      >storage</i
+                    >
+                  </div>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <div class="text" v-bind="attrs" v-on="on">
+                        <h1 class="status-label radio-status">
+                          {{currentFrequency == 0 ? 'Rádio Desligada' : `In
+                          radio`}}
+                        </h1>
+                        <h2 class="status-description radio-label">
+                          {{currentFrequency !== 0 ? (customRadioName !== "" ?
+                          customRadioName : 'Frequência: ' + currentFrequency) :
+                          ''}}
+                        </h2>
+                      </div>
+                    </template>
+                    <span>Estado da Rádio</span>
+                  </v-tooltip>
+                </div>
+                <div class="icons icons2">
+                  <v-tooltip left>
+                    <template v-slot:activator="{ on, attrs }">
+                      <i
+                        @click="change_tab('radio-members')"
+                        v-bind="attrs"
+                        v-on="on"
+                        class="material-icons unselectable status-icon radio-members"
+                        >people_outline</i
+                      >
+                    </template>
+                    <span>Abrir membros da rádio</span>
+                  </v-tooltip>
+                </div>
+              </div>
+
+              <div class="info-div settings">
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div
+                      class="settings-div settings-button"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="change_tab('settings')"
+                      v-ripple
+                    >
+                      <i class="material-icons settings-icon unselectable"
+                        >more_horiz</i
+                      >
+                      <h1 class="settings-text unselectable">Definições</h1>
+                    </div>
+                  </template>
+                  <span>Abrir Definições</span>
+                </v-tooltip>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div
+                      class="settings-div join-radio-button"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="change_tab('join-radio')"
+                      v-ripple
+                    >
+                      <i
+                        class="material-icons settings-icon call-icon unselectable"
+                        >call</i
+                      >
+                      <h1 class="settings-text call-text unselectable">
+                        Entrar na frequência
+                      </h1>
+                    </div>
+                  </template>
+                  <span>Entrar na frequência</span>
+                </v-tooltip>
+              </div>
+            </div>
+
+            <div
+              class="item-container"
+              :style="{'opacity': tab == 'join-radio' ? '1' : '0', 'z-index': tab == 'join-radio' ? '2' : '1'}"
+            >
+              <div class="info-div">
+                <h1 class="status-label">Entrar na frequência</h1>
+
+                <v-text-field
+                  class="frequency-input"
+                  label="Frequência"
+                  v-model="frequency"
+                  solo
+                  hide-details
+                  type="number"
+                ></v-text-field>
+
+                <v-btn
+                  small
+                  color="var(--button-background)"
+                  class="frequency-button"
+                  @click="join_frequency"
+                >
+                  Entrar Frequência
+                </v-btn>
+
+                <!-- <div class="radio-stations">
+                                <div class="radio-station first">
+                                    <h1 class="radio-station-name">Police Radio</h1>
+                                    <h2 class="radio-station-frequency">Frequency: 911</h2>
+                                </div>
+                                <div class="radio-station">
+                                    <h1 class="radio-station-name">Police & Ambulance Radio</h1>
+                                    <h2 class="radio-station-frequency">Frequency: 911</h2>
+                                </div>
+                            </div> -->
+              </div>
+            </div>
+
+            <div
+              class="item-container"
+              :style="{'opacity': tab == 'settings' ? '1' : '0', 'z-index': tab == 'settings' ? '2' : '1'}"
+            >
+              <div class="info-div settings2">
+                <h1
+                  class="status-label"
+                  style="
+                    font-size: 22px;
+                    margin-bottom: 0px;
+                    padding-bottom: 5px;
+                    text-align: center;
+                  "
+                >
+                  Definições
+                </h1>
+                <hr style="margin-bottom: 15px" />
+                <v-switch
+                  class="v-input--reverse v-input--expand"
+                  label="Modo Escuro"
+                  v-model="settings.darkTheme"
+                  color="white"
+                  hide-details
+                  @change="save_settings('theme', settings.darkTheme)"
+                ></v-switch>
+                <v-switch
+                  class="v-input--reverse v-input--expand"
+                  label="Anonymous"
+                  v-model="settings.anonymous"
+                  color="white"
+                  hide-details
+                  @change="save_settings('anonymous', settings.anonymous)"
+                ></v-switch>
+                <v-switch
+                  class="v-input--reverse v-input--expand"
+                  label="Mover rádio"
+                  v-model="settings.allowDrag"
+                  color="white"
+                  hide-details
+                ></v-switch>
+                <v-select
+                  :items="sizeSelectItems"
+                  label="Size"
+                  solo
+                  hide-details
+                  v-model="settings.scale"
+                  @change="save_settings('size', settings.scale)"
+                >
+                  <template slot="selection" slot-scope="data">
+                    Size: {{(parseInt(settings.scale * 100)).toString()}}%
+                  </template>
+                </v-select>
+              </div>
+            </div>
+
+            <div
+              class="item-container"
+              :style="{'opacity': tab == 'radio-members' ? '1' : '0', 'z-index': tab == 'radio-members' ? '2' : '1'}"
+            >
+              <div class="info-div">
+                <h1
+                  class="status-label"
+                  style="
+                    font-size: 22px;
+                    margin-bottom: 0px;
+                    padding-bottom: 5px;
+                    text-align: center;
+                  "
+                >
+                  Membros na frequência
+                </h1>
+                <hr />
+                <div class="radio-members-container">
+                  <div
+                    class="radio-member"
+                    v-if="radioMembers.length == 0 || currentFrequency == 0"
+                  >
+                    <h1 class="radio-member-header">
+                      Não estás em nenhuma frequência
+                    </h1>
+                  </div>
+                  <template
+                    v-if="radioMembers.length !== 0 && currentFrequency !== 0"
+                  >
+                    <div
+                      v-for="(player, index) in radioMembers"
+                      class="radio-member"
+                    >
+                      <h1
+                        class="radio-member-header"
+                        :style="{'color': player.talking == true ? '#fff' : 'rgb(225,225,225)'}"
+                      >
+                        {{player.name}}
+                      </h1>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <a
+                class="radio-home-button"
+                v-ripple="{ class: `white--text` }"
+                @click="() => {
+                            play_sound('click')
+                            if (tab !== 'main') {
+                                change_tab('main')
+                            } else {
+                                close()
+                            }
+                        }"
+                v-bind="attrs"
+                v-on="on"
+              ></a>
+            </template>
+            <span>Voltar</span>
+          </v-tooltip>
+          <v-tooltip left>
+            <template v-slot:activator="{ on, attrs }">
+              <a
+                @click="() => {
+                            if (settings.volume !== 100) {
+                                play_sound('click')
+                                settings.volume += 5
+                                save_settings('volume', settings.volume)
+                            }
+                        }"
+                class="radio-volume-up-button"
+                v-bind="attrs"
+                v-on="on"
+                v-ripple="{ class: `white--text` }"
+              ></a>
+            </template>
+            <span>Volume +</span>
+          </v-tooltip>
+          <v-tooltip right>
+            <template v-slot:activator="{ on, attrs }">
+              <a
+                @click="() => {
+                            if (settings.volume !== 0) {
+                                play_sound('click')
+                                settings.volume -= 5
+                                save_settings('volume', settings.volume)
+                            }
+                        }"
+                class="radio-volume-down-button"
+                v-bind="attrs"
+                v-on="on"
+                v-ripple="{ class: `white--text` }"
+              ></a>
+            </template>
+            <span>Volume -</span>
+          </v-tooltip>
+          <v-tooltip left>
+            <template v-slot:activator="{ on, attrs }">
+              <a
+                class="radio-power-button"
+                @click="() => {
+                            poweredOn = !poweredOn
+                            if (poweredOn) {
+                                play_sound('audio_on')
+                                if (currentFrequency !== 0) {
+                                    join_frequency(currentFrequency, true)
+                                }
+                            }
+                            else {
+                                join_frequency(0, true)
+                                play_sound('audio_off')
+                            }
+                        }"
+                v-bind="attrs"
+                v-on="on"
+                v-ripple="{ class: `white--text` }"
+              ></a>
+            </template>
+            <span>{{poweredOn ? 'Desligar' : 'Ligar'}}</span>
+          </v-tooltip>
+        </div>
+      </v-app>
+    </div>
+
+    <script>
+      const viewmodel = new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data: {
+          settings: {
+            darkTheme: false,
+            anonymous: false,
+            allowDrag: false,
+            scale: 1.0,
+            position: {
+              left: 0,
+              top: 0,
+            },
+            volume: 100,
+          },
+
+          frequency: "",
+          currentFrequency: 0,
+          customRadioName: "",
+
+          radioMembers: [],
+
+          show: false,
+          poweredOn: true,
+          tab: "main",
+
+          sizeSelectItems: [
+            { text: "120%", value: 1.2 },
+            { text: "110%", value: 1.1 },
+            { text: "100%", value: 1.0 },
+            { text: "90%", value: 0.9 },
+            { text: "80%", value: 0.8 },
+            { text: "70%", value: 0.7 },
+            { text: "60%", value: 0.6 },
+            { text: "50%", value: 0.5 },
+          ],
+
+          street: "",
+          voiceScript: "",
+        },
+
+        methods: {
+          open: function () {
+            viewmodel.tab = "main";
+            viewmodel.show = true;
+          },
+
+          close: function () {
+            viewmodel.show = false;
+            axios
+              .post("https://zerio-radio/close", {})
+              .then((resp) => {})
+              .catch((event) => {});
+          },
+
+          change_tab: function (newTab) {
+            viewmodel.tab = newTab;
+          },
+
+          save_settings: function (name, value) {
+            axios
+              .post("https://zerio-radio/savesettings", {
+                name: name,
+                value: value,
+              })
+              .then((resp) => {})
+              .catch((event) => {});
+          },
+
+          play_sound(name) {
+            document.getElementById(name);
+            document.getElementById(name).load();
+            document.getElementById(name).volume =
+              viewmodel.settings.volume / 100;
+            document.getElementById(name).play();
+          },
+
+          join_frequency(freq, force) {
+            viewmodel.play_sound("click");
+
+            var joiningFreq = viewmodel.frequency;
+            if (force == true) {
+              joiningFreq = freq;
+            }
+
+            if (
+              joiningFreq !== undefined &&
+              joiningFreq !== "" &&
+              joiningFreq !== "0"
+            ) {
+              axios
+                .post("https://zerio-radio/joinRadio", {
+                  frequency: joiningFreq,
+                })
+                .then((resp) => {
+                  if (force !== true) {
+                    if (resp.status == 200) {
+                      var data = resp.data;
+                      if (data.result == true) {
+                        viewmodel.change_tab("main");
+                        Notifications.fire({
+                          title: "Rádio Ligada",
+                          text: `Entraste ${
+                            data.frequencyLabel !== "" &&
+                            data.frequencyLabel !== undefined
+                              ? "the " + data.frequencyLabel
+                              : data.frequency + " MHz"
+                          }`,
+                          icon: "success",
+
+                          target: ".main-container",
+                        });
+                        viewmodel.currentFrequency = data.frequency;
+                      } else {
+                        Notifications.fire({
+                          title: "Rádio bloqueada",
+                          text: "Não tens acesso a esta rádio!",
+                          icon: "error",
+
+                          target: ".main-container",
+                        });
+                      }
+                    } else {
+                      if (force !== true) {
+                        Notifications.fire({
+                          title: "Network issue",
+                          text: "We encountered some type of network issue whilst connecting to the radio channel!",
+                          icon: "error",
+
+                          target: ".main-container",
+                        });
+                      }
+                    }
+                  }
+                })
+                .catch((event) => {});
+            } else {
+              axios
+                .post("https://zerio-radio/leaveRadio", {})
+                .then((resp) => {})
+                .catch((event) => {});
+              if (force !== true) {
+                Notifications.fire({
+                  title: "Rádio desligada",
+                  text: `Saiste da rádio!`,
+                  icon: "success",
+
+                  target: ".main-container",
+                });
+                viewmodel.currentFrequency = 0;
+                viewmodel.change_tab("main");
+              }
+            }
+          },
+        },
+
+        mounted() {
+          // Dragging
+          const moveable = new Moveable(document.body, {
+            target: document.querySelector(".main-container"),
+            draggable: true,
+          });
+          moveable
+            .on("dragStart", ({ target, clientX, clientY }) => {})
+            .on(
+              "drag",
+              ({
+                target,
+                transform,
+                left,
+                top,
+                right,
+                bottom,
+                beforeDelta,
+                beforeDist,
+                delta,
+                dist,
+                clientX,
+                clientY,
+              }) => {
+                var mainCont = document.querySelector(".main-container");
+                if (viewmodel.settings.allowDrag) {
+                  if (left < 0) {
+                    left = 0;
+                  }
+                  if (left > window.innerWidth - mainCont.offsetWidth) {
+                    left = window.innerWidth - mainCont.offsetWidth;
+                  }
+                  if (top < 0) {
+                    top = 0;
+                  }
+                  if (top > window.innerHeight - mainCont.offsetHeight) {
+                    top = window.innerHeight - mainCont.offsetHeight;
+                  }
+                  viewmodel.settings.position = {
+                    left: left,
+                    top: top,
+                  };
+                  target.style.left = `${left}px`;
+                  target.style.top = `${top}px`;
+                }
+              }
+            )
+            .on("dragEnd", ({ target, isDrag, clientX, clientY }) => {
+              axios
+                .post("https://zerio-radio/savesettings", {
+                  name: "position",
+                  value: {
+                    left: target.style.left,
+                    top: target.style.top,
+                  },
+                })
+                .then((resp) => {})
+                .catch((event) => {});
+            });
+
+          window.addEventListener("keydown", function (event) {
+            switch (event.keyCode) {
+              case 27: // ESCAPE
+                viewmodel.close();
+                break;
+            }
+          });
+
+          window.addEventListener("message", function (event) {
+            switch (event.data.action) {
+              case "open":
+                viewmodel.open();
+                break;
+              case "updateData":
+                viewmodel.street = event.data.data.streetLabel;
+                viewmodel.currentFrequency = event.data.data.radioFrequency;
+                viewmodel.customRadioName = event.data.data.radioLabel;
+                viewmodel.radioMembers = event.data.data.radioMembers;
+                viewmodel.voiceScript = event.data.data.voiceScript;
+                break;
+              case "updateSettings":
+                viewmodel.settings.anonymous = event.data.data.anonymous;
+                viewmodel.settings.scale = event.data.data.size;
+
+                if (
+                  event.data.data.theme == true ||
+                  event.data.data.theme == "dark"
+                ) {
+                  viewmodel.settings.darkTheme = true;
+                } else {
+                  viewmodel.settings.darkTheme = false;
+                }
+
+                var main = document.querySelector(".main-container");
+
+                if (event.data.data.position.left < 0) {
+                  event.data.data.position.left = 0;
+                }
+                if (
+                  event.data.data.position.left >
+                  window.innerWidth - main.offsetWidth
+                ) {
+                  event.data.data.position.left =
+                    window.innerWidth - main.offsetWidth;
+                }
+                if (event.data.data.position.top < 0) {
+                  event.data.data.position.top = 0;
+                }
+                if (
+                  event.data.data.position.top >
+                  window.innerHeight - main.offsetHeight
+                ) {
+                  event.data.data.position.top =
+                    window.innerHeight - main.offsetHeight;
+                }
+
+                if (event.data.data.position.left !== 0) {
+                  main.style.left = event.data.data.position.left;
+                  viewmodel.settings.position.left =
+                    event.data.data.position.left;
+                }
+
+                if (event.data.data.volume) {
+                  viewmodel.settings.volume = event.data.data.volume;
+                }
+
+                if (event.data.data.position.top !== 0) {
+                  main.style.top = event.data.data.position.top;
+                  viewmodel.settings.position.top = Number(
+                    event.data.data.position.top.substring(
+                      0,
+                      event.data.data.position.top.length - 2
+                    )
+                  );
+                }
+
+                break;
+            }
+          });
+        },
+      });
+    </script>
+
+    <audio id="audio_on" src="sounds/on.ogg"></audio>
+    <audio id="audio_off" src="sounds/off.ogg"></audio>
+    <audio id="click" src="sounds/click.ogg"></audio>
+  </body>
+</html>

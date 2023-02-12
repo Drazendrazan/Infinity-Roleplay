@@ -1,0 +1,73 @@
+#app.darkmode {
+    /* MAIN */
+    --background: #202243;
+    --top-background: #16172E;
+    --icon-color: #fff;
+    --darker-text-color: rgb(200,200,200);
+    --text-color: #fff;
+    --small-line-color: grey;
+    --container-background: #1B1D39;
+    --transparent-button-hover: rgba(255,255,255,0.1);
+
+    /* ALERTS */
+    --alert-background: #1B1D39;
+
+    /* OTHER */
+        /* TOGGLES */
+        --switch-background: #22264a;
+        --circle-background: #303567;
+        --switch-active-background: #2A2E59;
+        --circle-active-background: #555ca7;
+
+        /* NOTIFICATIONS */
+        --notification-background: #202243;
+        --notification-button-background: #3E4484;
+        --notification-button-shadow: rgba(115, 103, 240, 0.5);
+
+        /* SELECTS */
+        --select-background: #202243;
+
+        /* TEXT FIELDS */
+        --text-field-background: #202243;
+
+    /* BUTTONS */
+        --button-background: #2A2E59;
+        --button-hover-background: #313563;
+}
+
+#app.lightmode {
+    /* MAIN */
+    --background: #93AAC0;
+    --top-background: #587896;
+    --icon-color: #fff;
+    --darker-text-color: rgb(200,200,200);
+    --text-color: #fff;
+    --small-line-color: grey;
+    --container-background: #304C64;
+    --transparent-button-hover: rgba(255,255,255,0.1);
+
+    /* ALERTS */
+    --alert-background: #1B1D39;
+
+    /* OTHER */
+        /* TOGGLES */
+        --switch-background: #445b6f;
+        --circle-background: #788ea2;
+        --switch-active-background: #647f98;
+        --circle-active-background: #a7bdd2;
+
+        /* NOTIFICATIONS */
+        --notification-background: #445b6f;
+        --notification-button-background: #6e8fad;
+        --notification-button-shadow: rgba(135, 167, 197, 0.5);
+
+        /* SELECTS */
+        --select-background: #46647d;
+
+        /* TEXT FIELDS */
+        --text-field-background: #46647d;
+
+        /* BUTTONS */
+        --button-background: #6e8fad;
+        --button-hover-background: #87a7c5
+}

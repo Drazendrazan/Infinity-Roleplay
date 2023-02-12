@@ -1,0 +1,11 @@
+RegisterNUICallback('DeleteNote', function(data, cb)
+	ESX.TriggerServerCallback('InfinityPhone:server:DeleteNote', function(callback)
+		cb(callback)
+	end, data.id)
+end)
+
+RegisterNUICallback('AddNote', function(data, cb)
+	ESX.TriggerServerCallback('InfinityPhone:server:AddNote', function(callback)
+		cb(callback)
+	end, data)
+end)
