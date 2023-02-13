@@ -1,6 +1,6 @@
 # O que é o Infinity Roleplay?
 
-O Infinity Roleplay foi um servidor criado do 0 por mim que usa a framework ESX, ESX-Legacy. Dei o meu máximo para fazer o servidor, ao ponto de ter demorado 2 semanas e meia. Fui "forçado" a fechar devido a falta de tempo por causa de estudos. Deixo aqui o servidor em código aberto para quem quiser utilizar ou aprender com ele. Tem muitos sistemas próprios e alguns premium. Caso queiras ligar esta base, estes são os scripts premium:
+O Infinity Roleplay foi um servidor criado do 0 por mim que usa a framework ESX, ESX-Legacy 1.8.5. Dei o meu máximo para fazer o servidor, ao ponto de ter demorado 2 semanas e meia. Fui "forçado" a fechar devido a falta de tempo por causa de estudos. Deixo aqui o servidor em código aberto para quem quiser utilizar ou aprender com ele. Tem muitos sistemas próprios e alguns premium. Caso queiras ligar esta base, estes são os scripts premium:
 
 * okokBanking
 * okokChatV2
