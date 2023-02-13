@@ -2,7 +2,7 @@ Config = {}
 
 local Prefix = "[Infinity Roleplay] "
 Config.DiscordServerID = 1035256934753915001 -- Discord Server ID
-Config.DiscordBotToken = "MTAzNTI2NjY2MTMyODA5MzI3Ng.GnGxyN.BnLFpbvQ3hDqA0F2-msLJlQKEMRwMfODlLTy9s" -- Discord Bot Token. You can create one on https://discord.com/developers/applications
+Config.DiscordBotToken = "" -- Discord Bot Token. You can create one on https://discord.com/developers/applications
 Config.maxServerSlots = 64
 
 Config.Roles = {
