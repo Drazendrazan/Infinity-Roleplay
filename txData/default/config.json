@@ -1,0 +1,41 @@
+{
+  "global": {
+    "serverName": "Infinity Roleplay",
+    "language": "pt",
+    "menuEnabled": true,
+    "menuAlignRight": false,
+    "menuPageKey": "Tab"
+  },
+  "logger": {},
+  "monitor": {
+    "restarterSchedule": [
+      "04:00",
+      "12:00",
+      "20:00"
+    ],
+    "resourceStartingTolerance": "600",
+    "disableChatWarnings": false
+  },
+  "playerDatabase": {
+    "onJoinCheckBan": true,
+    "onJoinCheckWhitelist": false,
+    "whitelistRejectionMessage": "Servidor em manutenção.",
+    "banRejectionMessage": ""
+  },
+  "webServer": {
+    "disableNuiSourceCheck": false
+  },
+  "discordBot": {
+    "enabled": false,
+    "token": "",
+    "announceChannel": false,
+    "prefix": "!",
+    "statusMessage": "**IP:** `cfx.re/join/zqla8d`\n**Jogadores:** <players>\n**Tempo:** <uptime>"
+  },
+  "fxRunner": {
+    "serverDataPath": "C:/Users/SrD4rkOficial/Desktop/Server/txData/Base/",
+    "cfgPath": "C:/Users/SrD4rkOficial/Desktop/Server/txData/Base/server.cfg",
+    "onesync": "on",
+    "autostart": true
+  }
+}
